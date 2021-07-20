@@ -485,9 +485,9 @@ struct f2fs_map_blocks {
 
 #define DEF_DIR_LEVEL		0
 #ifdef CONFIG_F2FS_RAMFS
-#define NR_AC_STAT 86
+#define NR_AC_STAT 66
 #define NR_AC_TIME_STAGE_1 20
-#define NR_AC_TIME_STAGE_2 80
+#define NR_AC_TIME_STAGE_2 60
 
 enum {
     INODE_INIT,
@@ -526,8 +526,8 @@ struct f2fs_inode_info {
 	struct mutex inmem_lock;	/* lock for inmemory pages */
 	struct extent_tree *extent_tree;	/* cached extent_tree entry */
 #ifdef CONFIG_F2FS_RAMFS
-       unsigned int *ac_stat_20; // TODO 改为动态分配
-       unsigned int *ac_stat_80;
+       unsigned int *ac_stat_stage1; // TODO 改为动态分配
+       unsigned int *ac_stat_stage2;
        unsigned int ac_stat_tl[6];
     //    unsigned int ac_stat[86];
        unsigned int ftype;

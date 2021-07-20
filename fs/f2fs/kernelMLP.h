@@ -7,7 +7,7 @@
 typedef long long mat_t;
 #define KERNEL_TIMES (1000000L)  // 不能写UL，因为强制类型转换，会将signed，转化为unsigned
 
-#define HIGH_RECALL_CONFIG
+
 
 struct matrix {
     mat_t **data;
@@ -87,33 +87,34 @@ void init_mlp(struct mlp_model *mlp_model, struct mlp_conf conf);
 void init_mlp2(struct mlp_model *mlp_model, struct mlp_conf conf);
 void free_mlp(struct mlp_model *mlp_model);
 struct matrix *mlp_transform(struct mlp_model *model, struct matrix *input_mat);
+struct matrix *mlp_transform2(struct mlp_model *model, struct matrix *input_mat);
 struct matrix *mlp_normalize(struct mlp_model *model, struct matrix *input);
 
 struct matrix *matrix_alloc(int m, int n);
 void matrix_release(struct matrix *mat);
 struct matrix *matrix_normalize(struct matrix *mat, int axis);
 
-extern const long long w0[][26];
-extern const long long w1[][512];
-extern const long long w2[][200];
-extern const long long w3[][2];
-extern const long long b0[];
-extern const long long b1[];
-extern const long long b2[];
-extern const long long b3[];
-extern const long long mean[];
-extern const long long scale[];
+extern const long long w0_stage1[][26];
+extern const long long w1_stage1[][512];
+extern const long long w2_stage1[][200];
+extern const long long w3_stage1[][2];
+extern const long long b0_stage1[];
+extern const long long b1_stage1[];
+extern const long long b2_stage1[];
+extern const long long b3_stage1[];
+extern const long long mean_stage1[];
+extern const long long scale_stage1[];
 
-extern const long long w0_80[][86];
-extern const long long w1_80[][512];
-extern const long long w2_80[][200];
-extern const long long w3_80[][2];
-extern const long long b0_80[];
-extern const long long b1_80[];
-extern const long long b2_80[];
-extern const long long b3_80[];
-extern const long long mean_80[];
-extern const long long scale_80[];
+extern const long long w0_stage2[][66];
+extern const long long w1_stage2[][512];
+extern const long long w2_stage2[][200];
+extern const long long w3_stage2[][2];
+extern const long long b0_stage2[];
+extern const long long b1_stage2[];
+extern const long long b2_stage2[];
+extern const long long b3_stage2[];
+extern const long long mean_stage2[];
+extern const long long scale_stage2[];
 
 
 #endif //KERNELMLP_KERNELMLP_H

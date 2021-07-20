@@ -8,4 +8,4 @@ f2fs-$(CONFIG_F2FS_STAT_FS) += debug.o
 f2fs-$(CONFIG_F2FS_FS_XATTR) += xattr.o
 f2fs-$(CONFIG_F2FS_FS_POSIX_ACL) += acl.o
 f2fs-$(CONFIG_F2FS_IO_TRACE) += trace.o
-f2fs-$(CONFIG_F2FS_RAMFS) += filemgr.o fgapp.o kernelMLP.o mlp_conf.o
+f2fs-$(CONFIG_F2FS_RAMFS) += filemgr.o fgapp.o kernelMLP.o mlp_config_stage1_haccu.o mlp_config_stage1_hrecall.o mlp_config_stage2.o

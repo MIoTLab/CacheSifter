@@ -133,7 +133,7 @@ static inline void set_cold_files(struct f2fs_sb_info *sbi, struct inode *inode,
 static int is_cache_file(struct dentry *dentry)
 {
        char *fname, *fullname;
-       const int pathlen = 256;
+       const int pathlen = 512;
        if(dentry) {
                fname = kmalloc(pathlen, GFP_KERNEL);
                if(!fname)
@@ -167,7 +167,7 @@ out:
 static int no_inline_file(struct dentry *dentry)
 {
        char *fname, *fullname;
-       const int pathlen = 256;
+       const int pathlen = 512;
        if(dentry) {
                fname = kmalloc(pathlen, GFP_KERNEL);
                if(!fname)
@@ -206,10 +206,10 @@ static int f2fs_create(struct inode *dir, struct dentry *dentry, umode_t mode,
 		set_cold_files(sbi, inode, dentry->d_name.name);
 
 #ifdef CONFIG_F2FS_RAMFS
-	if(is_cache_file(dentry) && (S_ISREG(inode->i_mode)|| S_ISDIR(inode->i_mode))){
+	if(is_cache_file(dentry) && (S_ISREG(inode->i_mode))){
 		struct f2fs_inode_info *fi = F2FS_I(inode);
-		fi->ac_stat_20 = kmalloc(sizeof(int) * 20, GFP_KERNEL|__GFP_ZERO);
-		if(fi->ac_stat_20) {
+		fi->ac_stat_stage1 = kmalloc(sizeof(int) * 20, GFP_KERNEL|__GFP_ZERO);
+		if(fi->ac_stat_stage1) {
 			if(!add_to_inode_list(inode, INIT_INODE_LIST)){ // return 0 if ok
 				//if(no_inline_file(dentry))
 				clear_inode_flag(fi, FI_INLINE_DATA);
@@ -222,7 +222,7 @@ static int f2fs_create(struct inode *dir, struct dentry *dentry, umode_t mode,
 				// printk(KERN_ALERT "[filemgr] create ef2fs dir,%s\n", dentry->d_name.name);
 			} else {
 				// printk(KERN_ALERT "[filemgr] can not add to init list,%s\n", dentry->d_name.name);
-				kfree(fi->ac_stat_20);
+				kfree(fi->ac_stat_stage1);
 			}
 		}
 	}

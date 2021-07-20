@@ -330,7 +330,7 @@ int init_file_manager(void)
     stage1_conf.m_mean = 26; stage1_conf.n_mean = 1;
 
     // stage2 model
-    stage2_conf.m_w0 = 512; stage2_conf.n_w0 = 86;
+    stage2_conf.m_w0 = 512; stage2_conf.n_w0 = 66;
     stage2_conf.m_w1 = 200; stage2_conf.n_w1 = 512;
     stage2_conf.m_w2 = 2; stage2_conf.n_w2 = 200;
     stage2_conf.m_w3 = 2; stage2_conf.n_w3 = 2;
@@ -340,8 +340,8 @@ int init_file_manager(void)
     stage2_conf.m_b2 = 2; stage2_conf.n_b2 = 1;
     stage2_conf.m_b3 = 2; stage2_conf.n_b3 = 1;
 
-    stage2_conf.m_scale = 86; stage2_conf.n_scale = 1;
-    stage2_conf.m_mean = 86; stage2_conf.n_mean = 1;
+    stage2_conf.m_scale = 66; stage2_conf.n_scale = 1;
+    stage2_conf.m_mean = 66; stage2_conf.n_mean = 1;
 
 	init_mlp(&stage1_model, stage1_conf);
     init_mlp2(&stage2_model, stage2_conf);
@@ -380,10 +380,10 @@ static void print_inode_stat(struct inode *inode, const char *str)
 {
     struct f2fs_inode_info *fi = F2FS_I(inode);
 
-    printk(KERN_ALERT "[filemgr] %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s\n", 
-        fi->ac_stat_20[0], fi->ac_stat_20[1], fi->ac_stat_20[2], fi->ac_stat_20[3], fi->ac_stat_20[4], fi->ac_stat_20[5], fi->ac_stat_20[6], fi->ac_stat_20[7], fi->ac_stat_20[8], 
-        fi->ac_stat_20[9], fi->ac_stat_20[10], fi->ac_stat_20[11], fi->ac_stat_20[12], fi->ac_stat_20[13], fi->ac_stat_20[14], fi->ac_stat_20[15], fi->ac_stat_20[16], fi->ac_stat_20[17], 
-        fi->ac_stat_20[18], fi->ac_stat_20[19], fi->ac_stat_20[20], fi->ac_stat_tl[0], fi->ac_stat_tl[1], fi->ac_stat_tl[2], fi->ac_stat_tl[3], fi->ac_stat_tl[4], fi->ac_stat_tl[5],str
+    printk(KERN_ALERT "[filemgr] %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s\n", 
+        fi->ac_stat_stage1[0], fi->ac_stat_stage1[1], fi->ac_stat_stage1[2], fi->ac_stat_stage1[3], fi->ac_stat_stage1[4], fi->ac_stat_stage1[5], fi->ac_stat_stage1[6], fi->ac_stat_stage1[7], fi->ac_stat_stage1[8], 
+        fi->ac_stat_stage1[9], fi->ac_stat_stage1[10], fi->ac_stat_stage1[11], fi->ac_stat_stage1[12], fi->ac_stat_stage1[13], fi->ac_stat_stage1[14], fi->ac_stat_stage1[15], fi->ac_stat_stage1[16], fi->ac_stat_stage1[17], 
+        fi->ac_stat_stage1[18], fi->ac_stat_stage1[19], fi->ac_stat_tl[0], fi->ac_stat_tl[1], fi->ac_stat_tl[2], fi->ac_stat_tl[3], fi->ac_stat_tl[4], fi->ac_stat_tl[5],str
     );
 }
 
@@ -391,16 +391,14 @@ static void print_inode_stat2(struct inode *inode, const char *str)
 {
     struct f2fs_inode_info *fi = F2FS_I(inode);
 
-    printk(KERN_ALERT "[filemgr] %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s\n", 
-        fi->ac_stat_20[0], fi->ac_stat_20[1], fi->ac_stat_20[2], fi->ac_stat_20[3], fi->ac_stat_20[4], fi->ac_stat_20[5], fi->ac_stat_20[6], fi->ac_stat_20[7], fi->ac_stat_20[8], 
-        fi->ac_stat_20[9], fi->ac_stat_20[10], fi->ac_stat_20[11], fi->ac_stat_20[12], fi->ac_stat_20[13], fi->ac_stat_20[14], fi->ac_stat_20[15], fi->ac_stat_20[16], fi->ac_stat_20[17], 
-        fi->ac_stat_20[18], fi->ac_stat_20[19], fi->ac_stat_80[0], fi->ac_stat_80[1], fi->ac_stat_80[2], fi->ac_stat_80[3], fi->ac_stat_80[4], fi->ac_stat_80[5], fi->ac_stat_80[6], 
-        fi->ac_stat_80[7], fi->ac_stat_80[8], fi->ac_stat_80[9], fi->ac_stat_80[10], fi->ac_stat_80[11], fi->ac_stat_80[12], fi->ac_stat_80[13], fi->ac_stat_80[14], fi->ac_stat_80[15], 
-        fi->ac_stat_80[16], fi->ac_stat_80[17], fi->ac_stat_80[18], fi->ac_stat_80[19], fi->ac_stat_80[20], fi->ac_stat_80[21], fi->ac_stat_80[22], fi->ac_stat_80[23], fi->ac_stat_80[24], 
-        fi->ac_stat_80[25], fi->ac_stat_80[26], fi->ac_stat_80[27], fi->ac_stat_80[28], fi->ac_stat_80[29], fi->ac_stat_80[30], fi->ac_stat_80[31], fi->ac_stat_80[32], fi->ac_stat_80[33], 
-        fi->ac_stat_80[34], fi->ac_stat_80[35], fi->ac_stat_80[36], fi->ac_stat_80[37], fi->ac_stat_80[38], fi->ac_stat_80[39],fi->ac_stat_80[40], fi->ac_stat_80[41], fi->ac_stat_80[42], 
-        fi->ac_stat_80[43], fi->ac_stat_80[44], fi->ac_stat_80[45], fi->ac_stat_80[46], fi->ac_stat_80[47], fi->ac_stat_80[48], fi->ac_stat_80[49], fi->ac_stat_80[50], fi->ac_stat_80[51], 
-        fi->ac_stat_80[52], fi->ac_stat_80[53], fi->ac_stat_80[54], fi->ac_stat_80[55], fi->ac_stat_80[56], fi->ac_stat_80[57], fi->ac_stat_80[58], fi->ac_stat_80[59], 
+    printk(KERN_ALERT "[filemgr] %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s\n", 
+        fi->ac_stat_stage1[0], fi->ac_stat_stage1[1], fi->ac_stat_stage1[2], fi->ac_stat_stage1[3], fi->ac_stat_stage1[4], fi->ac_stat_stage1[5], fi->ac_stat_stage1[6], fi->ac_stat_stage1[7], fi->ac_stat_stage1[8], 
+        fi->ac_stat_stage1[9], fi->ac_stat_stage1[10], fi->ac_stat_stage1[11], fi->ac_stat_stage1[12], fi->ac_stat_stage1[13], fi->ac_stat_stage1[14], fi->ac_stat_stage1[15], fi->ac_stat_stage1[16], fi->ac_stat_stage1[17], 
+        fi->ac_stat_stage1[18], fi->ac_stat_stage1[19], fi->ac_stat_stage2[0], fi->ac_stat_stage2[1], fi->ac_stat_stage2[2], fi->ac_stat_stage2[3], fi->ac_stat_stage2[4], fi->ac_stat_stage2[5], fi->ac_stat_stage2[6], 
+        fi->ac_stat_stage2[7], fi->ac_stat_stage2[8], fi->ac_stat_stage2[9], fi->ac_stat_stage2[10], fi->ac_stat_stage2[11], fi->ac_stat_stage2[12], fi->ac_stat_stage2[13], fi->ac_stat_stage2[14], fi->ac_stat_stage2[15], 
+        fi->ac_stat_stage2[16], fi->ac_stat_stage2[17], fi->ac_stat_stage2[18], fi->ac_stat_stage2[19], fi->ac_stat_stage2[20], fi->ac_stat_stage2[21], fi->ac_stat_stage2[22], fi->ac_stat_stage2[23], fi->ac_stat_stage2[24], 
+        fi->ac_stat_stage2[25], fi->ac_stat_stage2[26], fi->ac_stat_stage2[27], fi->ac_stat_stage2[28], fi->ac_stat_stage2[29], fi->ac_stat_stage2[30], fi->ac_stat_stage2[31], fi->ac_stat_stage2[32], fi->ac_stat_stage2[33], 
+        fi->ac_stat_stage2[34], fi->ac_stat_stage2[35], fi->ac_stat_stage2[36], fi->ac_stat_stage2[37], fi->ac_stat_stage2[38], fi->ac_stat_stage2[39],
         fi->ac_stat_tl[0], fi->ac_stat_tl[1], fi->ac_stat_tl[2], fi->ac_stat_tl[3], fi->ac_stat_tl[4], fi->ac_stat_tl[5],str
     );
 }
@@ -440,7 +438,7 @@ void classify1(struct list_head *list, int nr_inodes)
             fi->ac_stat_tl[5] = 0;
 
         for (j = 0; j < 20; j++)
-            input->data[i][j] = fi->ac_stat_20[j] * KERNEL_TIMES;
+            input->data[i][j] = fi->ac_stat_stage1[j] * KERNEL_TIMES;
         
         input->data[i][20] = fi->ac_stat_tl[0] * KERNEL_TIMES;
         input->data[i][21] = fi->ac_stat_tl[1] * KERNEL_TIMES;
@@ -470,16 +468,16 @@ void classify1(struct list_head *list, int nr_inodes)
         struct inode *inode = i_array[i];
         if (out->data[i][0] == 0) {
             set_inode_ftype(inode, INODE_CLEAN);
-            // print_inode_stat(inode, "INODE_CLEAN");
+            //print_inode_stat(inode, "INODE_CLEAN");
         } else {
-        	F2FS_I(inode)->ac_stat_80 = kmalloc(sizeof(int) * 60, GFP_KERNEL|__GFP_ZERO);
-            if(F2FS_I(inode)->ac_stat_80) { // is NULL, no memory
+        	F2FS_I(inode)->ac_stat_stage2 = kmalloc(sizeof(int) * 40, GFP_KERNEL|__GFP_ZERO);
+            if(F2FS_I(inode)->ac_stat_stage2) { // is NULL, no memory
                 set_inode_ftype(inode, INODE_STAGE1);
             } else {
                 set_inode_ftype(inode, INODE_WRITEBACK);
             }
             
-            // print_inode_stat(inode, "INODE_STAGE1");
+            //print_inode_stat(inode, "INODE_STAGE1");
         }
     }
     matrix_release(out);
@@ -509,7 +507,7 @@ void classify2(struct list_head *list, int nr_inodes)
     if(!i_array)
         goto error_out;
 
-    input = matrix_alloc(nr_inodes, 86); // 第一次分类是维度是96的输入矩阵
+    input = matrix_alloc(nr_inodes, 66); // 第一次分类是维度是96的输入矩阵
     if (!input) // NO MEMORY
         goto error_kfree;
 
@@ -519,26 +517,26 @@ void classify2(struct list_head *list, int nr_inodes)
         if (fi->last_access_time != 0)
             fi->ac_stat_tl[5] = fi->last_access_time - fi->create_time;
         else
-            fi->ac_stat_tl[5] = 80;
+            fi->ac_stat_tl[5] = 60;
 
-        if (fi->ac_stat_tl[5] > 80)
-            fi->ac_stat_tl[5] = 80;
+        if (fi->ac_stat_tl[5] > 60)
+            fi->ac_stat_tl[5] = 60;
 
         if (fi->ac_stat_tl[5] < 0)
             fi->ac_stat_tl[5] = 0;
 
         for (j = 0; j < 20; j++)
-            input->data[i][j] = fi->ac_stat_20[j] * KERNEL_TIMES;
+            input->data[i][j] = fi->ac_stat_stage1[j] * KERNEL_TIMES;
         
-        for (j = 20; j < 80; j++)
-            input->data[i][j] = fi->ac_stat_80[j-20] * KERNEL_TIMES;
+        for (j = 20; j < 60; j++)
+            input->data[i][j] = fi->ac_stat_stage2[j-20] * KERNEL_TIMES;
 
-        input->data[i][80] = fi->ac_stat_tl[0] * KERNEL_TIMES;
-        input->data[i][81] = fi->ac_stat_tl[1] * KERNEL_TIMES;
-        input->data[i][82] = fi->ac_stat_tl[2] * KERNEL_TIMES;
-        input->data[i][83] = fi->ac_stat_tl[3] * KERNEL_TIMES;
-        input->data[i][84] = fi->ac_stat_tl[4] * KERNEL_TIMES;
-        input->data[i][85] = fi->ac_stat_tl[5] * KERNEL_TIMES;
+        input->data[i][60] = fi->ac_stat_tl[0] * KERNEL_TIMES;
+        input->data[i][61] = fi->ac_stat_tl[1] * KERNEL_TIMES;
+        input->data[i][62] = fi->ac_stat_tl[2] * KERNEL_TIMES;
+        input->data[i][63] = fi->ac_stat_tl[3] * KERNEL_TIMES;
+        input->data[i][64] = fi->ac_stat_tl[4] * KERNEL_TIMES;
+        input->data[i][65] = fi->ac_stat_tl[5] * KERNEL_TIMES;
         i_array[i] = ie->inode;
         i++;
     } 
@@ -549,7 +547,7 @@ void classify2(struct list_head *list, int nr_inodes)
     if(!norm_input)
         goto error_kfree;
 
-    out = mlp_transform(&stage2_model, norm_input);
+    out = mlp_transform2(&stage2_model, norm_input);
     matrix_release(norm_input);
 
     if (!out)
@@ -697,11 +695,11 @@ void handle_inode_by_type(struct list_head *inode_list)
                 nr_stage1++;
             } else { // WRITEBACK处理
             	fi = F2FS_I(ie->inode);
-            	if(fi->ac_stat_20) {
-            		kfree(fi->ac_stat_20);
+            	if(fi->ac_stat_stage1) {
+            		kfree(fi->ac_stat_stage1);
             	}
-            	if(fi->ac_stat_80) {
-            		kfree(fi->ac_stat_80);
+            	if(fi->ac_stat_stage2) {
+            		kfree(fi->ac_stat_stage2);
             	}
                 handle_writeback_inode(ie->inode);
                 remove_inode_entry(ie, 0); // dont manage this type of files
@@ -723,7 +721,7 @@ void classify_files(void)
     // step 1: 先遍历STAGE1_INODE_LIST的list中已经第一次分类完的inode，这里可能不需要迁移到临时的list中
     list_for_each_entry_safe_reverse(ie, next_ie, &filemgr_list.ilist[STAGE1_INODE_LIST], list) {
         struct f2fs_inode_info *fi = F2FS_I(ie->inode);
-        if(now - fi->create_time >= 80) { // 针对寿命大于80秒的数据进行分类
+        if(now - fi->create_time >= 60) { 
             list_del(&ie->list); 
             filemgr_list.nr_ilist[STAGE1_INODE_LIST]--;
             if(!ie->inode) {

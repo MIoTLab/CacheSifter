@@ -1971,7 +1971,7 @@ static ssize_t f2fs_file_read_iter(struct kiocb *iocb, struct iov_iter *from)
 
            if(is_inode_ftype(inode, INODE_INIT)) {
     			if(pos < NR_AC_TIME_STAGE_1) {
-    				fi->ac_stat_20[pos] += iov_iter_count(from);
+    				fi->ac_stat_stage1[pos] += iov_iter_count(from);
     				fi->ac_stat_tl[0] += iov_iter_count(from); // write amount
     				fi->ac_stat_tl[1] += 1;
     				fi->ac_stat_tl[4] = i_size_read(inode);
@@ -1979,7 +1979,7 @@ static ssize_t f2fs_file_read_iter(struct kiocb *iocb, struct iov_iter *from)
     			}
            } else if(is_inode_ftype(inode, INODE_STAGE1)) {
     			if(pos < NR_AC_TIME_STAGE_2) {
-    				fi->ac_stat_80[pos-20] += iov_iter_count(from);
+    				fi->ac_stat_stage2[pos-20] += iov_iter_count(from);
     				fi->ac_stat_tl[0] += iov_iter_count(from); // write amount
     				fi->ac_stat_tl[1] += 1;
     				fi->ac_stat_tl[4] = i_size_read(inode);
@@ -2018,7 +2018,7 @@ static ssize_t f2fs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
             pos = now - fi->create_time;
             if(is_inode_ftype(inode, INODE_INIT)) {
             	if(pos < NR_AC_TIME_STAGE_1) {
-            		fi->ac_stat_20[pos] += iov_iter_count(from);
+            		fi->ac_stat_stage1[pos] += iov_iter_count(from);
             		fi->ac_stat_tl[2] += iov_iter_count(from); // write amount
             		fi->ac_stat_tl[3] += 1;
             		fi->ac_stat_tl[4] = i_size_read(inode);
@@ -2026,7 +2026,7 @@ static ssize_t f2fs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
             	}
             } else if(is_inode_ftype(inode, INODE_STAGE1)) {
             	if(pos < NR_AC_TIME_STAGE_2) {
-            		fi->ac_stat_80[pos-20] += iov_iter_count(from);
+            		fi->ac_stat_stage2[pos-20] += iov_iter_count(from);
             		fi->ac_stat_tl[2] += iov_iter_count(from); // write amount
             		fi->ac_stat_tl[3] += 1;
             		fi->ac_stat_tl[4] = i_size_read(inode);

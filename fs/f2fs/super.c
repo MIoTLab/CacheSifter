@@ -636,11 +636,11 @@ static void f2fs_i_callback(struct rcu_head *head)
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 #ifdef CONFIG_F2FS_RAMFS
 	fi = F2FS_I(inode);
-	if(fi->ac_stat_20) {
-		kfree(fi->ac_stat_20);
+	if(fi->ac_stat_stage1) {
+		kfree(fi->ac_stat_stage1);
 	}
-	if(fi->ac_stat_80) {
-		kfree(fi->ac_stat_80);
+	if(fi->ac_stat_stage2) {
+		kfree(fi->ac_stat_stage2);
 	}
 #endif
 	kmem_cache_free(f2fs_inode_cachep, F2FS_I(inode));

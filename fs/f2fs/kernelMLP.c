@@ -225,7 +225,7 @@ struct matrix *matrix_normalize(struct matrix *mat, int axis)
 
     if(axis == 1) { // 每一个属性进行正则化
         for(i = 0; i < mat->rows; i++) {
-            norm = L2_big_norm(mat, i, 1);
+            norm = L2_norm(mat, i, 1);
             for(j = 0; j < mat->cols; j++) {
                 if(norm != 0){
                     ret->data[i][j] = mat->data[i][j] * KERNEL_TIMES / norm;
@@ -236,7 +236,7 @@ struct matrix *matrix_normalize(struct matrix *mat, int axis)
         }
     } else if(axis == 0) { // 每一记录进行正则化
         for(j = 0; j < mat->cols; j++) {
-            norm = L2_big_norm(mat, j, 0);
+            norm = L2_norm(mat, j, 0);
             for(i = 0; i < mat->rows; i++) {
                 if(norm != 0) {
                     ret->data[i][j] = mat->data[i][j] * KERNEL_TIMES / norm;
@@ -271,50 +271,50 @@ void init_mlp(struct mlp_model *mlp_model, struct mlp_conf conf)
 
     for(i = 0; i < conf.m_w0; i++) {
         for(j = 0; j < conf.n_w0; j++) {
-            mlp_model->w0->data[i][j] = w0[i][j];
+            mlp_model->w0->data[i][j] = w0_stage1[i][j];
         }
     }
 
     for(i = 0; i < conf.m_w1; i++) {
         for(j = 0; j < conf.n_w1; j++) {
-            mlp_model->w1->data[i][j] = w1[i][j];
+            mlp_model->w1->data[i][j] = w1_stage1[i][j];
         }
     }
 
     for(i = 0; i < conf.m_w2; i++) {
         for(j = 0; j < conf.n_w2; j++) {
-            mlp_model->w2->data[i][j] = w2[i][j];
+            mlp_model->w2->data[i][j] = w2_stage1[i][j];
         }
     }
 
     for(i = 0; i < conf.m_w3; i++) {
         for(j = 0; j < conf.n_w3; j++) {
-            mlp_model->w3->data[i][j] = w3[i][j];
+            mlp_model->w3->data[i][j] = w3_stage1[i][j];
         }
     }
 
     for(i = 0; i < conf.m_b0; i++) {
-        mlp_model->b0->data[i][0] = b0[i];
+        mlp_model->b0->data[i][0] = b0_stage1[i];
     }
 
     for(i = 0; i < conf.m_b1; i++) {
-        mlp_model->b1->data[i][0] = b1[i];
+        mlp_model->b1->data[i][0] = b1_stage1[i];
     }
 
     for(i = 0; i < conf.m_b2; i++) {
-        mlp_model->b2->data[i][0] = b2[i];
+        mlp_model->b2->data[i][0] = b2_stage1[i];
     }
 
     for(i = 0; i < conf.m_b3; i++) {
-        mlp_model->b3->data[i][0] = b3[i];
+        mlp_model->b3->data[i][0] = b3_stage1[i];
     }
 
     for(i = 0; i < conf.m_mean; i++) {
-        mlp_model->mean->data[i][0] = mean[i];
+        mlp_model->mean->data[i][0] = mean_stage1[i];
     }
 
     for(i = 0; i < conf.m_scale; i++) {
-        mlp_model->scale->data[i][0] = scale[i];
+        mlp_model->scale->data[i][0] = scale_stage1[i];
     }
 }
 
@@ -336,50 +336,50 @@ void init_mlp2(struct mlp_model *mlp_model, struct mlp_conf conf)
 
     for(i = 0; i < conf.m_w0; i++) {
         for(j = 0; j < conf.n_w0; j++) {
-            mlp_model->w0->data[i][j] = w0_80[i][j];
+            mlp_model->w0->data[i][j] = w0_stage2[i][j];
         }
     }
 
     for(i = 0; i < conf.m_w1; i++) {
         for(j = 0; j < conf.n_w1; j++) {
-            mlp_model->w1->data[i][j] = w1_80[i][j];
+            mlp_model->w1->data[i][j] = w1_stage2[i][j];
         }
     }
 
     for(i = 0; i < conf.m_w2; i++) {
         for(j = 0; j < conf.n_w2; j++) {
-            mlp_model->w2->data[i][j] = w2_80[i][j];
+            mlp_model->w2->data[i][j] = w2_stage2[i][j];
         }
     }
 
     for(i = 0; i < conf.m_w3; i++) {
         for(j = 0; j < conf.n_w3; j++) {
-            mlp_model->w3->data[i][j] = w3_80[i][j];
+            mlp_model->w3->data[i][j] = w3_stage2[i][j];
         }
     }
 
     for(i = 0; i < conf.m_b0; i++) {
-        mlp_model->b0->data[i][0] = b0_80[i];
+        mlp_model->b0->data[i][0] = b0_stage2[i];
     }
 
     for(i = 0; i < conf.m_b1; i++) {
-        mlp_model->b1->data[i][0] = b1_80[i];
+        mlp_model->b1->data[i][0] = b1_stage2[i];
     }
 
     for(i = 0; i < conf.m_b2; i++) {
-        mlp_model->b2->data[i][0] = b2_80[i];
+        mlp_model->b2->data[i][0] = b2_stage2[i];
     }
 
     for(i = 0; i < conf.m_b3; i++) {
-        mlp_model->b3->data[i][0] = b3_80[i];
+        mlp_model->b3->data[i][0] = b3_stage2[i];
     }
 
     for(i = 0; i < conf.m_mean; i++) {
-        mlp_model->mean->data[i][0] = mean_80[i];
+        mlp_model->mean->data[i][0] = mean_stage2[i];
     }
 
     for(i = 0; i < conf.m_scale; i++) {
-        mlp_model->scale->data[i][0] = scale_80[i];
+        mlp_model->scale->data[i][0] = scale_stage2[i];
     }
 }
 
@@ -503,7 +503,117 @@ struct matrix *mlp_transform(struct mlp_model *model, struct matrix *input_mat)
 
     // 分类
     for(i = 0; i < mlp_out_softmax->rows; i++) {
-        if(mlp_out_softmax->data[i][1] >=  mlp_out_softmax->data[i][0]) {
+        if(mlp_out_softmax->data[i][1] >=  378590) {
+            pred->data[i][0] = 1;
+        } else {
+            pred->data[i][0] = 0;
+        }
+    }
+
+    matrix_release(mlp_out_softmax);
+    return pred;
+}
+
+struct matrix *mlp_transform2(struct mlp_model *model, struct matrix *input_mat)
+{
+    int i, j;
+    struct matrix *mlp0, *mlp1, *mlp2, *mlp_out, *mlp_out_T, *mlp_out_softmax;
+    struct matrix *input_T = matrix_transpos(input_mat);
+    struct matrix *pred;
+
+    if(!input_T)
+        return NULL;
+
+    pred = matrix_alloc(input_mat->rows, 1);
+    if(!pred) {
+        matrix_release(input_T);
+        return NULL;
+    }
+
+    mlp0 = matrix_int_mul(model->w0, input_T);
+    if(!mlp0) {
+        matrix_release(input_T);
+        matrix_release(pred);
+        return NULL;
+    }
+
+    // tanh
+    for(j = 0; j < mlp0->cols; j++) {
+        for(i = 0; i < mlp0->rows; i++) {
+            mlp0->data[i][j] += model->b0->data[i][0]; // 加上偏置b0
+            mlp0->data[i][j] = my_tanh(mlp0->data[i][j]);
+        }
+    }
+    matrix_release(input_T);
+
+    mlp1 = matrix_int_mul(model->w1, mlp0);
+    if(!mlp1) {
+        matrix_release(mlp0);
+        matrix_release(pred);
+        return NULL;
+    }
+
+    // relu
+    for(i = 0; i < mlp1->rows; i++) {
+        for(j = 0; j < mlp1->cols; j++) {
+            mlp1->data[i][j] += model->b1->data[i][0]; // 加上偏置b1
+            mlp1->data[i][j] = relu(mlp1->data[i][j]);
+        }
+    }
+    matrix_release(mlp0);
+
+    mlp2 = matrix_int_mul(model->w2, mlp1);
+    if(!mlp2) {
+        matrix_release(mlp1);
+        matrix_release(pred);
+        return NULL;
+    }
+
+    // relu
+    for(i = 0; i < mlp2->rows; i++) {
+        for(j = 0; j < mlp2->cols; j++) {
+            mlp2->data[i][j] += model->b2->data[i][0]; // 加上偏置b2
+            mlp2->data[i][j] = relu(mlp2->data[i][j]);
+        }
+    }
+    matrix_release(mlp1);
+
+    mlp_out = matrix_int_mul(model->w3, mlp2);
+    if(!mlp_out) {
+        matrix_release(mlp2);
+        matrix_release(pred);
+        return NULL;
+    }
+
+    for(i = 0; i < mlp_out->rows; i++) {
+        for(j = 0; j < mlp_out->cols; j++) {
+            mlp_out->data[i][j] += model->b3->data[i][0]; // 加上偏置b3
+        }
+    }
+    matrix_release(mlp2);
+
+    mlp_out_T = matrix_transpos(mlp_out);
+    if(!mlp_out_T) {
+        matrix_release(mlp_out);
+        matrix_release(pred);
+        return NULL;
+    }
+
+    matrix_release(mlp_out);
+
+    // softmax
+    mlp_out_softmax = my_softmax(mlp_out_T); // 调整kernel time的使用
+    if(!mlp_out_softmax) {
+        matrix_release(mlp_out_T);
+        matrix_release(pred);
+        return NULL;
+    }
+
+    matrix_release(mlp_out_T);
+
+    // 分类
+    for(i = 0; i < mlp_out_softmax->rows; i++) {
+        if(mlp_out_softmax->data[i][1] >=  500000) {
             pred->data[i][0] = 1;
         } else {
             pred->data[i][0] = 0;

@@ -2186,8 +2186,8 @@ void submit_bio(int rw, struct bio *bio)
 									if (inode->i_dentry.first) {
 										next = inode->i_dentry.first;
 										dentry = hlist_entry(next, struct dentry, d_u.d_alias);
-										fname = (char *) kmalloc(sizeof(char) * 255, GFP_KERNEL);
-										ss = dentry_path_raw(dentry, fname, 255);
+										fname = (char *) kmalloc(sizeof(char) * 512, GFP_KERNEL);
+										ss = dentry_path_raw(dentry, fname, 512);
 										if (ss) {
 											if (TRACE_CONDITION) {
 											do_gettimeofday(&tv);
@@ -2202,8 +2202,8 @@ void submit_bio(int rw, struct bio *bio)
 												);*/
                                                                                          printk(KERN_ALERT "->%s, bio-r, %u, %lld, %lu\n", ss, bio->bi_iter.bi_size, dentry->d_inode->i_size, dentry->d_inode->i_ino);
 											}
-										}
-										kfree(fname);
+											kfree(fname);
+										}	
 									}
 									break;
 								}
@@ -2224,8 +2224,8 @@ void submit_bio(int rw, struct bio *bio)
 									if (inode->i_dentry.first) {
 										next = inode->i_dentry.first;
 										dentry = hlist_entry(next, struct dentry, d_u.d_alias);
-										fname = (char *) kmalloc(sizeof(char) * 255, GFP_KERNEL);
-										ss = dentry_path_raw(dentry, fname, 255);
+										fname = (char *) kmalloc(sizeof(char) * 512, GFP_KERNEL);
+										ss = dentry_path_raw(dentry, fname, 512);
 										if (ss) {
 											if (TRACE_CONDITION) {
 												int is_uevi = 0, is_reg = 0, is_dir = 0;
