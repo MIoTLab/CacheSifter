@@ -7,7 +7,7 @@
 typedef long long mat_t;
 #define KERNEL_TIMES (1000000L)  // 不能写UL，因为强制类型转换，会将signed，转化为unsigned
 
-
+#define HIGH_RECALL_CONFIG
 
 struct matrix {
     mat_t **data;
