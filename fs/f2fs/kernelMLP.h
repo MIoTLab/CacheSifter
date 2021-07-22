@@ -75,6 +75,18 @@ static inline void print_matrix(struct matrix *mat)
     }
 }
 
+static inline void print_matrix_stage1(struct matrix *mat, const char *str)
+{
+    int i;
+    for(i = 0; i < mat->rows; i++) {
+        printk(KERN_ALERT "[filemgr][%s] %ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,1\n", 
+            str, mat->data[i][0], mat->data[i][1], mat->data[i][2], mat->data[i][3], mat->data[i][4], mat->data[i][5], mat->data[i][6], mat->data[i][7], mat->data[i][8], 
+            mat->data[i][9], mat->data[i][10], mat->data[i][11], mat->data[i][12], mat->data[i][13], mat->data[i][14], mat->data[i][15], mat->data[i][16], mat->data[i][17], 
+            mat->data[i][18], mat->data[i][19], mat->data[i][20], mat->data[i][21], mat->data[i][22], mat->data[i][23], mat->data[i][24], mat->data[i][25]
+        );
+    }
+}
+
 static inline mat_t factorial(int x){
     mat_t factorial[] = {
             1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 39916800, 479001600, 6227020800,

@@ -2157,7 +2157,7 @@ unsigned char trace_one_bio = 0;
  * interfaces; @bio must be presetup and ready for I/O.
  *
  */
-#define CONFIG_VFS_TRACE_BIO_WRITE
+// #define CONFIG_VFS_TRACE_BIO_WRITE
 #define TRACE_CONDITION ((strstr(ss, "/data/") || strstr(ss, "/app/") || strstr(ss, "/media/")))
 void submit_bio(int rw, struct bio *bio)
 {

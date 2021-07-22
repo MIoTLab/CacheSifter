@@ -526,9 +526,9 @@ struct f2fs_inode_info {
 	struct mutex inmem_lock;	/* lock for inmemory pages */
 	struct extent_tree *extent_tree;	/* cached extent_tree entry */
 #ifdef CONFIG_F2FS_RAMFS
-       unsigned int *ac_stat_stage1; // TODO 改为动态分配
-       unsigned int *ac_stat_stage2;
-       unsigned int ac_stat_tl[6];
+       unsigned long *ac_stat_stage1; // TODO 改为动态分配
+       unsigned long *ac_stat_stage2;
+       unsigned long ac_stat_tl[6];
     //    unsigned int ac_stat[86];
        unsigned int ftype;
        unsigned char list_index;

@@ -208,7 +208,7 @@ static int f2fs_create(struct inode *dir, struct dentry *dentry, umode_t mode,
 #ifdef CONFIG_F2FS_RAMFS
 	if(is_cache_file(dentry) && (S_ISREG(inode->i_mode))){
 		struct f2fs_inode_info *fi = F2FS_I(inode);
-		fi->ac_stat_stage1 = kmalloc(sizeof(int) * 20, GFP_KERNEL|__GFP_ZERO);
+		fi->ac_stat_stage1 = kmalloc(sizeof(unsigned long) * 20, GFP_KERNEL|__GFP_ZERO);
 		if(fi->ac_stat_stage1) {
 			if(!add_to_inode_list(inode, INIT_INODE_LIST)){ // return 0 if ok
 				//if(no_inline_file(dentry))

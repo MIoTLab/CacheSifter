@@ -380,7 +380,7 @@ static void print_inode_stat(struct inode *inode, const char *str)
 {
     struct f2fs_inode_info *fi = F2FS_I(inode);
 
-    printk(KERN_ALERT "[filemgr] %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s\n", 
+    printk(KERN_ALERT "[filemgr] %ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%s\n", 
         fi->ac_stat_stage1[0], fi->ac_stat_stage1[1], fi->ac_stat_stage1[2], fi->ac_stat_stage1[3], fi->ac_stat_stage1[4], fi->ac_stat_stage1[5], fi->ac_stat_stage1[6], fi->ac_stat_stage1[7], fi->ac_stat_stage1[8], 
         fi->ac_stat_stage1[9], fi->ac_stat_stage1[10], fi->ac_stat_stage1[11], fi->ac_stat_stage1[12], fi->ac_stat_stage1[13], fi->ac_stat_stage1[14], fi->ac_stat_stage1[15], fi->ac_stat_stage1[16], fi->ac_stat_stage1[17], 
         fi->ac_stat_stage1[18], fi->ac_stat_stage1[19], fi->ac_stat_tl[0], fi->ac_stat_tl[1], fi->ac_stat_tl[2], fi->ac_stat_tl[3], fi->ac_stat_tl[4], fi->ac_stat_tl[5],str
@@ -391,7 +391,7 @@ static void print_inode_stat2(struct inode *inode, const char *str)
 {
     struct f2fs_inode_info *fi = F2FS_I(inode);
 
-    printk(KERN_ALERT "[filemgr] %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s\n", 
+    printk(KERN_ALERT "[filemgr] %ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%s\n", 
         fi->ac_stat_stage1[0], fi->ac_stat_stage1[1], fi->ac_stat_stage1[2], fi->ac_stat_stage1[3], fi->ac_stat_stage1[4], fi->ac_stat_stage1[5], fi->ac_stat_stage1[6], fi->ac_stat_stage1[7], fi->ac_stat_stage1[8], 
         fi->ac_stat_stage1[9], fi->ac_stat_stage1[10], fi->ac_stat_stage1[11], fi->ac_stat_stage1[12], fi->ac_stat_stage1[13], fi->ac_stat_stage1[14], fi->ac_stat_stage1[15], fi->ac_stat_stage1[16], fi->ac_stat_stage1[17], 
         fi->ac_stat_stage1[18], fi->ac_stat_stage1[19], fi->ac_stat_stage2[0], fi->ac_stat_stage2[1], fi->ac_stat_stage2[2], fi->ac_stat_stage2[3], fi->ac_stat_stage2[4], fi->ac_stat_stage2[5], fi->ac_stat_stage2[6], 
@@ -470,7 +470,7 @@ void classify1(struct list_head *list, int nr_inodes)
             set_inode_ftype(inode, INODE_CLEAN);
             //print_inode_stat(inode, "INODE_CLEAN");
         } else {
-        	F2FS_I(inode)->ac_stat_stage2 = kmalloc(sizeof(int) * 40, GFP_KERNEL|__GFP_ZERO);
+        	F2FS_I(inode)->ac_stat_stage2 = kmalloc(sizeof(unsigned long) * 40, GFP_KERNEL|__GFP_ZERO);
             if(F2FS_I(inode)->ac_stat_stage2) { // is NULL, no memory
                 set_inode_ftype(inode, INODE_STAGE1);
             } else {

@@ -628,6 +628,7 @@ struct matrix *mlp_normalize(struct mlp_model *model, struct matrix *input)
 {
     int i, j;
     struct matrix *norm_input = matrix_normalize(input, 1); // 暂时不需要归一化
+
     for(i = 0; i < norm_input->rows; i++) {
         for(j = 0; j < norm_input->cols; j++) {
             norm_input->data[i][j] = (norm_input->data[i][j] - model->mean->data[j][0]) * KERNEL_TIMES / model->scale->data[j][0];
