@@ -2,3 +2,19 @@ Since there is a limitation of the maximum size of github, we have uploaded our 
 https://portland-my.sharepoint.com/:f:/g/personal/yliang22-c_my_cityu_edu_hk/EjTAAPcfi4pOgn3xMxAu9XIB_orloT54DdlvOwLCm91cjQ?e=9K5cqo 
 Please download them if you are interested in.
 
+---------------------------introduction of the traces-----------------------
+We collected the access information during running popular mobile apps.
+Both VFS read/write and bio read/write are collected.
+
+The line includes "vfs_w" presents the write information collected from the VFS layer (read_write.c), and "vfs_r" means the read information.
+Similarly, the line includes "bio-w" denotes the write information obtained from the block layer (block-core.c).
+
+For the access information in the VFS layer.
+For exmaple, [  180.293579s][pid:3890,cpu4,GLThread 91]->1588402100762,vfs_w,/data/com.king.candycrushsaga/app_storage/social_data.dat,2632,2849,2849,28749,3890,GLThread 91
+The valid information is starting form "->" 
+access time, read/write flag, file name, io size, file size, ppos, ino, pid, process name.
+
+For the access information in block layer.
+For example, [  180.293609s][pid:3890,cpu4,GLThread 91]->/data/com.king.candycrushsaga/app_storage/social_data.dat, bio-w, 4096, 2849, 28749
+The valid information is starting from "->"
+filename, read/write flag, io size, file size, ino
